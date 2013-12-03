@@ -13,6 +13,6 @@
         <property name="hibernate.dialect">
         	org.hibernate.dialect.HSQLDialect
         </property>
-		<mapping resource="Employee.hbm.xml"/>
+		<mapping resource="Animal.hbm.xml"/>
     </session-factory>
 </hibernate-configuration>
