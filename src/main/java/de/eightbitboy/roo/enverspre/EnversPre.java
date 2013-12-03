@@ -1,10 +1,9 @@
 package de.eightbitboy.roo.enverspre;
 
+import de.eightbitboy.roo.enverspre.Database;
+
 public class EnversPre {
-
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
+		Database.setup();
 	}
-
 }
