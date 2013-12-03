@@ -1,5 +1,9 @@
 package de.eightbitboy.roo.enverspre.data;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name="ANIMALS")
 public class Animal{
 	private long id;
 	private String name;
