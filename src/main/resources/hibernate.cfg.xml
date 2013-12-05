@@ -3,15 +3,18 @@
 		"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
 		"http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
-    <session-factory name="ToDoSessionFactory">
+    <session-factory>
         <property name="hibernate.connection.driver_class">
         	org.hsqldb.jdbcDriver
         </property>
         <property name="hibernate.connection.url">
-        	jdbc:hsqldb:.
+        	jdbc:hsqldb:file:db/db
         </property>
         <property name="hibernate.dialect">
         	org.hibernate.dialect.HSQLDialect
+        </property>
+        <property name="hibernate.hbm2ddl.auto">
+        	create
         </property>
     </session-factory>
 </hibernate-configuration>

@@ -14,6 +14,9 @@ public class Animal{
 		this.name = name;
 	}
 	
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Column(name="ID")
 	public long getId(){
 		return this.id;
 	}
