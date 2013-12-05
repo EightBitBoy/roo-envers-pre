@@ -1,10 +1,12 @@
 package de.eightbitboy.roo.enverspre.data;
 
+import java.io.Serializable;
+
 import javax.persistence.*;
 
 @Entity
 @Table(name="ANIMALS")
-public class Animal{
+public class Animal implements Serializable{
 	private long id;
 	private String name;
 	

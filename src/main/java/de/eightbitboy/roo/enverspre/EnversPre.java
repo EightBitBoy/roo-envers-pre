@@ -25,11 +25,14 @@ public class EnversPre{
 		
 		Session session = sessionFactory.openSession();
 		Transaction transaction = session.beginTransaction();
-		transaction.commit();
 		Animal animal = new Animal();
 		animal.setName("Frankenstein");
 		long animalId = (Long)session.save(animal);
 		log.info(String.valueOf(animalId));
+		transaction.commit();
+		session.createSQLQuery("SHUTDOWN");
+		session.disconnect();
 		session.close();
+		sessionFactory.close();
 	}
 }
