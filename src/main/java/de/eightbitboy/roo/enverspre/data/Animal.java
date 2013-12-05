@@ -7,7 +7,12 @@ import javax.persistence.*;
 @Entity
 @Table(name="ANIMALS")
 public class Animal implements Serializable{
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Column(name="ID")
 	private long id;
+	
+	@Column(name="NAME")
 	private String name;
 	
 	public Animal(){};
@@ -16,9 +21,6 @@ public class Animal implements Serializable{
 		this.name = name;
 	}
 	
-	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(name="ID")
 	public long getId(){
 		return this.id;
 	}
