@@ -14,7 +14,7 @@
 			jdbc:hsqldb:file:db/test.db;shutdown=true;hsqldb.write_delay=false
 		</property>
 		<property name="hibernate.hbm2ddl.auto">
-			update
+			create
 		</property>
 	</session-factory>
 </hibernate-configuration>
