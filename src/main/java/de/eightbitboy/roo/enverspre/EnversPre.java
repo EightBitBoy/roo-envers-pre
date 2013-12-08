@@ -1,6 +1,7 @@
 package de.eightbitboy.roo.enverspre;
 
 
+import java.util.Iterator;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -21,18 +22,8 @@ public class EnversPre{
 		addAnimal("Max");
 		addAnimal("Jimmy");
 		addAnimal("Snowball");
-		/*
-		Session session = Database.openSession();		
-		transaction = session.beginTransaction();
-		Query query = session.createQuery("from Animal");
-		List list = query.list();
-		transaction.commit();
 		
-		log.info(list.toString());
-		
-		session.disconnect();
-		session.close();
-		*/
+		listAnimals();
 	}
 	
 	public static long addAnimal(String name){
@@ -47,5 +38,19 @@ public class EnversPre{
 		session.close();
 		
 		return animalId;
+	}
+	
+	public static void listAnimals(){
+		Session session = Database.openSession();
+		Transaction transaction = session.beginTransaction();
+		
+		List animals = session.createQuery("from Animal").list();
+		for(Iterator iterator = animals.iterator(); iterator.hasNext();){
+			Animal animal = (Animal)iterator.next();
+			log.info("Animal, " + animal.getId() + ", " + animal.getName());
+		}
+		
+		transaction.commit();
+		session.close();
 	}
 }
