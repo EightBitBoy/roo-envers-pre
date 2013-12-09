@@ -18,26 +18,44 @@ public class EnversPre{
 	
 	public static void main(String[] args){
 		
-		addAnimal("Sam");
-		addAnimal("Max");
+		Animal animal1 = addAnimal("Sam");
+		Animal animal2 = addAnimal("Max");
 		addAnimal("Jimmy");
 		addAnimal("Snowball");
-		
 		listAnimals();
+		
+		animal1.setName("Felix");
+		animal2.setName("Dolly");
+		updateAnimal(animal1);
+		updateAnimal(animal2);
+		listAnimals();
+		
 	}
 	
-	public static long addAnimal(String name){
+	public static Animal addAnimal(String name){
 		Animal animal = new Animal();
 		animal.setName(name);
 		
 		Session session = Database.openSession();
 		Transaction transaction = session.beginTransaction();
+		
 		long animalId = (Long)session.save(animal);
 		log.info("Added Animal with ID: " + String.valueOf(animalId));
+		
 		transaction.commit();
 		session.close();
 		
-		return animalId;
+		return animal;
+	}
+	
+	public static void updateAnimal(Animal animal){
+		Session session = Database.openSession();
+		Transaction transaction = session.beginTransaction();
+		
+		session.update(animal);
+		
+		transaction.commit();
+		session.close();
 	}
 	
 	public static void listAnimals(){
@@ -49,6 +67,16 @@ public class EnversPre{
 			Animal animal = (Animal)iterator.next();
 			log.info("Animal, " + animal.getId() + ", " + animal.getName());
 		}
+		
+		transaction.commit();
+		session.close();
+	}
+	
+	public static void getAnimalAudits(long id){
+		Session session = Database.openSession();
+		Transaction transaction = session.beginTransaction();
+		
+		
 		
 		transaction.commit();
 		session.close();
