@@ -24,12 +24,14 @@ public class EnversPre{
 		addAnimal("Snowball");
 		listAnimals();
 		
+		log.info(getAnimal(1).toString());
+		log.info(getAnimal(2).toString());
+		
 		animal1.setName("Felix");
 		animal2.setName("Dolly");
 		updateAnimal(animal1);
 		updateAnimal(animal2);
 		listAnimals();
-		
 	}
 	
 	public static Animal addAnimal(String name){
@@ -41,6 +43,18 @@ public class EnversPre{
 		
 		long animalId = (Long)session.save(animal);
 		log.info("Added Animal with ID: " + String.valueOf(animalId));
+		
+		transaction.commit();
+		session.close();
+		
+		return animal;
+	}
+	
+	public static Animal getAnimal(long id){
+		Session session = Database.openSession();
+		Transaction transaction = session.beginTransaction();
+		
+		Animal animal = (Animal)session.get(Animal.class, id);
 		
 		transaction.commit();
 		session.close();
