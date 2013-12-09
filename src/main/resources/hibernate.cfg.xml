@@ -17,13 +17,13 @@
 			create
 		</property>
 		<!--
-		<property name="show_sql">
+		<property name="hibernate.show_sql">
 			true
 		</property>
-		<property name="format_sql">
+		<property name="hibernate.format_sql">
 			true
 		</property>
-		<property name="use_sql_comments">
+		<property name="hibernate.use_sql_comments">
 			true
 		</property>
 		-->
