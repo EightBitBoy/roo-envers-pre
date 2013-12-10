@@ -33,4 +33,10 @@ public class Database {
 	public static Session openSession(){
 		return INSTANCE.sessionFactory.openSession();
 	}
+	
+	public static void shutdown(){
+		Session session = openSession();
+		session.createSQLQuery("SHUTDOWN");
+		session.close();
+	}
 }

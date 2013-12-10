@@ -4,6 +4,8 @@ import java.io.Serializable;
 
 import javax.persistence.*;
 
+import org.hibernate.envers.Audited;
+
 @Entity
 @Table(name="ANIMAL")
 public class Animal implements Serializable{
@@ -27,6 +29,7 @@ public class Animal implements Serializable{
 		this.id = id;
 	}
 	
+	@Audited
 	@Column(name="NAME")
 	public String getName(){
 		return this.name;

@@ -3,12 +3,16 @@ package de.eightbitboy.roo.enverspre;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.envers.AuditReader;
+import org.hibernate.envers.AuditReaderFactory;
+import org.hibernate.envers.query.AuditEntity;
 
 import de.eightbitboy.roo.enverspre.Database;
 import de.eightbitboy.roo.enverspre.data.Animal;
@@ -17,7 +21,6 @@ public class EnversPre{
 	public static Logger log = LoggerFactory.getLogger(EnversPre.class);
 	
 	public static void main(String[] args){
-		
 		Animal animal1 = addAnimal("Sam");
 		Animal animal2 = addAnimal("Max");
 		addAnimal("Jimmy");
@@ -32,6 +35,15 @@ public class EnversPre{
 		updateAnimal(animal1);
 		updateAnimal(animal2);
 		listAnimals();
+		
+		animal1.setName("Alfred");
+		updateAnimal(animal1);
+		animal1.setName("Jimmy");
+		updateAnimal(animal1);
+		animal1.setName("Suzy");
+		updateAnimal(animal1);
+		
+		listAnimalAudits(animal1.getId());
 	}
 	
 	public static Animal addAnimal(String name){
@@ -86,12 +98,31 @@ public class EnversPre{
 		session.close();
 	}
 	
-	public static void getAnimalAudits(long id){
+	public static void listAnimalAudits(long id){
 		Session session = Database.openSession();
 		Transaction transaction = session.beginTransaction();
 		
-		//TODO
 		
+		AuditReader auditReader = AuditReaderFactory.get(session);
+		List<Number> revisionNumbers = auditReader.getRevisions(Animal.class, id);
+		log.info(revisionNumbers.toString());
+		List revisions = auditReader.createQuery().forRevisionsOfEntity(Animal.class, true, false).add(AuditEntity.id().eq(id)).getResultList();
+		
+		log.info("Animal, ID: " + id);
+		for(Iterator iterator = revisions.iterator(); iterator.hasNext();){
+			Animal revision = (Animal)iterator.next();
+			log.info(revision.getName());
+			//log.info("Animal, " + ((Animal)revision[1]).getName());
+		}
+		
+		
+		/*
+		Map revisions = auditReader.findRevisions(Animal.class, revisionNumbers);
+		for(Iterator iterator = revisions.  .iterator(); iterator.hasNext();){
+			Animal animalRevision = (Animal)iterator.next();
+			log.info("Animal, " + animalRevision.getId() + ", " + animalRevision.getName());
+		}
+		*/
 		transaction.commit();
 		session.close();
 	}

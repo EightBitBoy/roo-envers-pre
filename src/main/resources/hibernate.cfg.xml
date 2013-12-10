@@ -11,7 +11,7 @@
 			org.hibernate.dialect.HSQLDialect
 		</property>
 		<property name="hibernate.connection.url">
-			jdbc:hsqldb:file:db/test.db;shutdown=true;hsqldb.write_delay=false
+			jdbc:hsqldb:file:db/test.db;shutdown=true;hsqldb.write_delay=false;
 		</property>
 		<property name="hibernate.hbm2ddl.auto">
 			create
