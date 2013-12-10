@@ -12,6 +12,8 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.envers.AuditReader;
 import org.hibernate.envers.AuditReaderFactory;
+import org.hibernate.envers.DefaultRevisionEntity;
+import org.hibernate.envers.RevisionType;
 import org.hibernate.envers.query.AuditEntity;
 
 import de.eightbitboy.roo.enverspre.Database;
@@ -109,10 +111,19 @@ public class EnversPre{
 		List revisions = auditReader.createQuery().forRevisionsOfEntity(Animal.class, true, false).add(AuditEntity.id().eq(id)).getResultList();
 		
 		log.info("Animal, ID: " + id);
+		/*
 		for(Iterator iterator = revisions.iterator(); iterator.hasNext();){
 			Animal revision = (Animal)iterator.next();
-			log.info(revision.getName());
-			//log.info("Animal, " + ((Animal)revision[1]).getName());
+			log.info("^^^ Name: " + revision.getName());
+		}
+		*/
+		
+		revisions = auditReader.createQuery().forRevisionsOfEntity(Animal.class, false, false).add(AuditEntity.id().eq(id)).getResultList();
+		for(Iterator iterator = revisions.iterator(); iterator.hasNext();){
+			Object[] revision = (Object[])iterator.next();
+			log.info("^^^ " + ((Animal)revision[0]).getName() + "; " +
+					((RevisionType)revision[2]).toString() + "; " +
+					((DefaultRevisionEntity)revision[1]).getRevisionDate().toString());
 		}
 		
 		
