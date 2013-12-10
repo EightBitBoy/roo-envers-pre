@@ -110,14 +110,7 @@ public class EnversPre{
 		log.info(revisionNumbers.toString());
 		List revisions = auditReader.createQuery().forRevisionsOfEntity(Animal.class, true, false).add(AuditEntity.id().eq(id)).getResultList();
 		
-		log.info("Animal, ID: " + id);
-		/*
-		for(Iterator iterator = revisions.iterator(); iterator.hasNext();){
-			Animal revision = (Animal)iterator.next();
-			log.info("^^^ Name: " + revision.getName());
-		}
-		*/
-		
+		log.info("Animal, ID: " + id);		
 		revisions = auditReader.createQuery().forRevisionsOfEntity(Animal.class, false, false).add(AuditEntity.id().eq(id)).getResultList();
 		for(Iterator iterator = revisions.iterator(); iterator.hasNext();){
 			Object[] revision = (Object[])iterator.next();
@@ -125,15 +118,7 @@ public class EnversPre{
 					((RevisionType)revision[2]).toString() + "; " +
 					((DefaultRevisionEntity)revision[1]).getRevisionDate().toString());
 		}
-		
-		
-		/*
-		Map revisions = auditReader.findRevisions(Animal.class, revisionNumbers);
-		for(Iterator iterator = revisions.  .iterator(); iterator.hasNext();){
-			Animal animalRevision = (Animal)iterator.next();
-			log.info("Animal, " + animalRevision.getId() + ", " + animalRevision.getName());
-		}
-		*/
+
 		transaction.commit();
 		session.close();
 	}
